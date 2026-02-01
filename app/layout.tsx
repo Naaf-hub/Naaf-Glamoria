@@ -13,10 +13,27 @@ const libreCaslon = localFont({
   weight: "400",
 });
 
-
 export const metadata: Metadata = {
-  title: "Coming Soon - SAT Realty",
-  description: "Our new premium real estate website is coming soon. Stay tuned.",
+  title: {
+    default: "Naaf Glamoria",
+    template: "%s | Naaf Glamoria",
+  },
+  description: "Discover Naaf Glamoria - where timeless elegance meets modern luxury. Explore our exclusive collection of fine jewelry. Coming Soon.",
+  keywords: ["Jewelry", "Naaf Glamoria", "Luxury", "Gold", "Diamonds", "Rings", "Necklaces", "Fine Jewelry"],
+  openGraph: {
+    title: "Naaf Glamoria",
+    description:
+      "Discover Naaf Glamoria - where timeless elegance meets modern luxury. Explore our exclusive collection of fine jewelry. Coming Soon.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Naaf Glamoria",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Naaf Glamoria",
+    description:
+      "Discover Naaf Glamoria - where timeless elegance meets modern luxury. Explore our exclusive collection of fine jewelry. Coming Soon.",
+  },
 };
 
 export default function RootLayout({
