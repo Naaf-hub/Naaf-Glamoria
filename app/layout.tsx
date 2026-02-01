@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 const caslon = localFont({
   src: "./fonts/CaslonTitling.otf",
@@ -11,6 +13,11 @@ const libreCaslon = localFont({
   src: "./fonts/LibreCaslonText-Regular.ttf",
   variable: "--font-librecaslon",
   weight: "400",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
 });
 
 export const metadata: Metadata = {
@@ -27,6 +34,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Naaf Glamoria",
+    images: [
+      {
+        url: "https://naaf-glamoria.vercel.app/images/og-image.png", // Ensure this file exists in your public folder
+        width: 1200,
+        height: 630,
+        alt: "Naaf Glamoria - Timeless Elegance",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -43,7 +58,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${caslon.variable} ${libreCaslon.variable} antialiased`}>{children}</body>
+      <body className={` ${caslon.variable} ${libreCaslon.variable} ${montserrat.variable} antialiased`}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

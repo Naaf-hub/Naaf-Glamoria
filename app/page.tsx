@@ -1,75 +1,126 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { Mail, Globe, ArrowRight } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react"; // Added Mail icon for mobile design
 import Image from "next/image";
-import { Footer } from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+
+// 1. Animation Variants (Reused for consistent feel)
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
 
 export default function Home() {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.5,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { type: "spring", stiffness: 100 },
-    },
-  };
-
   return (
-    <div className="relative min-h-screen w-full overflow-hidden font-librecaslon  text-white selection:bg-[#a8856e] selection:text-white">
-      {/* Background Image with Overlay */}
-      <div className="absolute hidden md:block inset-0 z-0 select-none">
-        <Image src="/images/homePageImages/bgImage1.jpeg" fill alt="Luxury Real Estate Background" className="object-cover " priority />
-        {/* <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/30" /> */}
+    <div className="relative h-screen w-full overflow-hidden font-librecaslon text-[#154415]">
+      {/* 1. Background Image */}
+      <div className="absolute hidden lg:block inset-0 z-0">
+        <Image src="/images/homePageImages/dESKTOP2.png" alt="Naaf Glamoria Background" fill className="object-cover" priority />
+        {/* Optional: Mobile-only gradient at bottom to ensure text readability if image is dark */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent lg:hidden" />
       </div>
-      <div className="absolute  md:hidden inset-0 z-0 select-none">
-        <Image src="/images/homePageImages/bgImageMobile.png" fill alt="Luxury Real Estate Background" className="object-cover " priority />
-        {/* <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/30" /> */}
+      <div className="absolute lg:hidden inset-0 z-0">
+        <Image src="/images/homePageImages/mobile.jpeg" alt="Naaf Glamoria Background" fill className="object-cover" priority />
+        {/* Optional: Mobile-only gradient at bottom to ensure text readability if image is dark */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent lg:hidden" />
       </div>
 
-      {/* Content Container */}
-      <main className="relative z-10 flex min-h-screen flex-col  justify-center items-center px-4 md:px-20">
-        <motion.div initial="hidden" animate="visible" variants={containerVariants} className=" max-w-2xl text-center">
-          {/* Brand Name */}
+      {/* 2. Navbar */}
+      <div className="absolute top-0 left-0 w-full z-50">
+        <Navbar />
+      </div>
 
-          {/* Main Heading */}
-          <motion.h1 variants={itemVariants} className="mb-8   text-2xl md:text-5xl text-[#154415] leading-[1.5]   ">
-            Stay Golden. Stay Glowing.{" "}
-            <span className="uppercase  ">
-              <br /> Naaf Glamoria
-            </span>{" "}
-            <br /> Coming Soon.
-          </motion.h1>
+      {/* 3. Main Layout Content */}
+      <main className="relative z-10 h-screen w-full pt-20">
+        <div className="grid h-full w-full grid-cols-1 lg:grid-cols-12">
+          {/* Left Spacer (Desktop Only) */}
+          <div className="hidden lg:block lg:col-span-6" />
 
-          {/* Subheading */}
+          {/* Content Area */}
+          <div className="col-span-1 lg:col-span-6 h-full w-full">
+            {/* =========================================
+                DESKTOP VERSION (Hidden on Mobile)
+                (Kept exactly as requested)
+               ========================================= */}
+            <div className="hidden lg:flex h-full flex-col justify-center items-center px-0 pr-32 xl:pr-48 text-center">
+              <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-6">
+                <motion.h1 variants={itemVariants} className="text-4xl md:text-7xl xl:text-8xl leading-[1.2] md:leading-[1.1] font-medium">
+                  Coming Soon...
+                </motion.h1>
 
-          {/* Contact Button */}
-          <motion.div variants={itemVariants}>
-            <a
-              href="mailto:info@sat-realty.com"
-              className="group inline-flex text-[#154415] items-center gap-3 rounded-full border border-[#154415]  px-6 py-4 md:text-lg  backdrop-blur-sm transition-all hover:border-[#154415] hover:bg-[#154415] hover:text-white"
-            >
-              <Mail className="h-4 w-4 group-hover:text-white   text-[#154415]" />
-              <span>Contact Us</span>
-              <ArrowRight className="h-4 w-4 group-hover:text-white  text-[#154415] transition-transform group-hover:translate-x-1" />
-            </a>
-          </motion.div>
-        </motion.div>
+                <div className="flex flex-col items-center gap-3">
+                  <motion.p variants={itemVariants} className="text-xl md:text-3xl font-bold text-[#154415]">
+                    Stay Golden Stay Glowing
+                  </motion.p>
+                  <motion.p variants={itemVariants} className="font-caslon font-medium text-xl text-[#154415] md:text-2xl ">
+                    Naaf Glamoria
+                  </motion.p>
+                </div>
 
-        {/* Footer Info */}
-        <div className="absolute bottom-0 w-full">
-          <Footer />
+                <motion.div variants={itemVariants} className="pt-4 flex justify-center">
+                  <a
+                    href="https://wa.me/918590715189?text=Hi%20Naaf%20Glamoria,%20I%E2%80%99m%20interested%20in%20your%20unique%20jewelry%20collection.%20Could%20you%20help%20me%20find%20the%20perfect%20piece?"
+                    target="_blank"
+                    className="group flex items-center gap-3 px-8 py-3 border border-[#154415] rounded-full hover:bg-[#154415] hover:text-white transition-all duration-300 bg-white/10 backdrop-blur-sm"
+                  >
+                    <span className="text-base md:text-lg tracking-wide">Contact Us</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </motion.div>
+              </motion.div>
+            </div>
+
+            {/* =========================================
+                MOBILE VERSION (Hidden on Desktop)
+                (Matches your uploaded image exactly)
+               ========================================= */}
+            <div className="flex lg:hidden h-full font-librecaslon flex-col justify-end items-center pb-5 px-6 text-center">
+              <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col items-center gap-1">
+                {/* 1. Main Headline "Stay Golden..." */}
+                <motion.h2 variants={itemVariants} className="text-[2.5rem] uppercase leading-[1.1] font-medium text-[#154415]">
+                  Coming Soon
+                </motion.h2>
+
+                {/* 2. Brand Name "NAAF GLAMORIA" */}
+                <motion.p variants={itemVariants} className="mt-2 text-lg  font-extrabold tracking-wider  text-[#154415]">
+                  Stay Golden Stay Glowing
+                </motion.p>
+
+                {/* 3. "Coming Soon." */}
+                <motion.p variants={itemVariants} className="text-lg mt-4 font-medium text-[#154415]">
+                  NAAF GLAMORIA
+                </motion.p>
+
+                {/* 4. Button (With Mail Icon as per image) */}
+                <motion.div variants={itemVariants} className="pt-8">
+                  <a
+                    href="https://wa.me/918590715189?text=Hi%20Naaf%20Glamoria,%20I%E2%80%99m%20interested%20in%20your%20unique%20jewelry%20collection.%20Could%20you%20help%20me%20find%20the%20perfect%20piece?"
+                    target="_blank"
+                    className="flex items-center gap-3 px-8 py-3 border border-[#154415] rounded-full bg-transparent text-[#154415] hover:bg-[#154415] hover:text-white transition-colors duration-300"
+                  >
+                    <span className="text-base font-medium">Contact Us</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
