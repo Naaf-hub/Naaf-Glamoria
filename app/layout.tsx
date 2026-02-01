@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Almarai } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { Providers } from "@/components/Providers";
 
 const caslon = localFont({
   src: "./fonts/CaslonTitling.otf",
@@ -18,6 +19,12 @@ const libreCaslon = localFont({
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
+});
+
+const almarai = Almarai({
+  subsets: ["arabic"],
+  weight: ["300", "400", "700", "800"],
+  variable: "--font-almarai",
 });
 
 export const metadata: Metadata = {
@@ -58,9 +65,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${caslon.variable} ${libreCaslon.variable} ${montserrat.variable} antialiased`}>
-        <Navbar />
-        {children}
+      <body className={` ${caslon.variable} ${libreCaslon.variable} ${montserrat.variable} ${almarai.variable} antialiased`}>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );
